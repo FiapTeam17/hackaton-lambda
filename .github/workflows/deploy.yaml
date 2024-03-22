@@ -1,10 +1,8 @@
 name: Publish AWS Lambda
-
 on:
     push:
         branches:
             - dev
-
 jobs:
     publish_lambda:
         name: Publish Lambda Function
@@ -12,21 +10,16 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v2
-
             - name: Setup .NET Core SDK
               uses: actions/setup-dotnet@v1
               with:
                   dotnet-version: "6.0.x" # ou '5.x' dependendo da versão que você está utilizando
-
             - name: Restore dependencies
               run: dotnet restore
-
             - name: Build project
               run: dotnet build -c Release
-
             - name: Publish Lambda package
               run: dotnet lambda package --configuration Release --output-package bin/release/net6.0/EnviarEmail.zip
-
             - name: Deploy Lambda function
               uses: aws-actions/aws-lambda-deploy@v0.2.0
               with:
