@@ -25,7 +25,7 @@ jobs:
               run: dotnet build -c Release
 
             - name: Publish Lambda package
-              run: dotnet lambda package --configuration Release --output-package bin/release/net6.0/MyLambdaFunction.zip
+              run: dotnet lambda package --configuration Release --output-package ../../hackaton-lambda/src/hackaton-lambda/bin/release/net6.0/MyLambdaFunction.zip
 
             - name: Install AWS CLI
               run: |
@@ -36,4 +36,4 @@ jobs:
               run: aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} && aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} && aws configure set region us-east-2
 
             - name: Deploy Lambda function
-              run: aws lambda update-function-code --function-name MyLambdaFunction --zip-file fileb://bin/release/net6.0/MyLambdaFunction.zip
+              run: aws lambda update-function-code --function-name MyLambdaFunction --zip-file fileb://../../hackaton-lambda/src/hackaton-lambda/bin/release/net6.0/MyLambdaFunction.zip
