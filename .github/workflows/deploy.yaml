@@ -3,7 +3,7 @@ name: Publish AWS Lambda
 on:
     push:
         branches:
-            - main
+            - dev
 
 jobs:
     publish_lambda:
