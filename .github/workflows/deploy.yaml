@@ -1,10 +1,8 @@
 name: Publish AWS Lambda
-
 on:
     push:
         branches:
             - dev
-
 jobs:
     publish_lambda:
         name: Publish Lambda Function
@@ -12,18 +10,14 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v2
-
             - name: Setup .NET Core SDK
               uses: actions/setup-dotnet@v1
               with:
                   dotnet-version: "6.0.x" # ou '5.x' dependendo da versão que você está utilizando
-
             - name: Restore dependencies
               run: dotnet restore
-
             - name: Build project
               run: dotnet build -c Release
-
            - uses: aws-actions/configure-aws-credentials@v4
               with:
                   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
