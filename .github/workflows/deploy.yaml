@@ -21,9 +21,9 @@ jobs:
             - name: AWS CLI
               run: dotnet tool install -g Amazon.Lambda.Tools
             - name: Restore dependencies
-              run: dotnet restore hackaton-lambda.sln
+              run: dotnet restore
             - name: Build
-              run: dotnet build --no-restore hackaton-lambda.sln
+              run: dotnet build --no-restore
             - name: Deploy to Lambda
               working-directory: ./src/hackaton-lambda
               run: dotnet lambda deploy-serverless
