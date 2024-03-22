@@ -2,19 +2,19 @@ name: .NET
 
 on:
     push:
-        branches: [main]
+        branches: [dev]
     pull_request:
-        branches: [main]
+        branches: [dev]
 
 defaults:
     run:
-        working-directory: ./Services
+        working-directory: ./hackaton-lambda
 
 jobs:
     build:
         runs-on: ubuntu-latest
         env:
-            working-directory: ./Services
+            working-directory: ./hackaton-lambda
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
