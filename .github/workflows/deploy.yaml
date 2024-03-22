@@ -4,15 +4,11 @@ on:
     push:
         branches: [dev]
 
-defaults:
-    run:
-        working-directory: ./hackaton-lambda
-
 jobs:
     build:
         runs-on: ubuntu-latest
         env:
-            working-directory: ./hackaton-lambda
+            working-directory: ../../hackaton-lambda
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -25,9 +21,9 @@ jobs:
             - name: AWS CLI
               run: dotnet tool install -g Amazon.Lambda.Tools
             - name: Restore dependencies
-              run: dotnet restore hackaton-lambda/hackaton-lambda.sln
+              run: dotnet restore hackaton-lambda.sln
             - name: Build
-              run: dotnet build --no-restore hackaton-lambda/hackaton-lambda.sln
+              run: dotnet build --no-restore hackaton-lambda.sln
             - name: Deploy to Lambda
               working-directory: ./src/hackaton-lambda
               run: dotnet lambda deploy-serverless
