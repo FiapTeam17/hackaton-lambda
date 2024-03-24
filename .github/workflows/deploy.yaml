@@ -2,7 +2,7 @@ name: Publish AWS Lambda
 on:
     push:
         branches:
-            - dev
+            - main
 jobs:
     publish_lambda:
         name: Publish Lambda Function
