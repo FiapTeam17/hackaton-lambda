@@ -1,0 +1,30 @@
+name: Publish AWS Lambda
+on:
+    push:
+        branches:
+            - main
+jobs:
+    publish_lambda:
+        name: Publish Lambda Function
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+            - name: Setup .NET Core SDK
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: "6.0.x" # ou '5.x' dependendo da versão que você está utilizando
+            - name: Restore dependencies
+              run: dotnet restore
+            - name: Build project
+              run: dotnet build -c Release
+           - uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: us-east-2
+            - run: |
+                  cd ../../hackaton-lambda/src/hackaton-lambda/bin/release/net6.0/MyLambdaFunction.zip
+                  zip -r MyLambdaFunction.zip .
+            - name: Deploy Lambda function
+              run: aws lambda update-function-code --function-name MyLambdaFunction --zip-file fileb://MyLambdaFunction.zip
